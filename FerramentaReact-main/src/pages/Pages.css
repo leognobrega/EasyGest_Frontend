@@ -1,0 +1,112 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.toolbar-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.toolbar .search-input {
+  flex: 1;
+  max-width: none;
+}
+
+.period-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.period-selector button {
+  padding: 8px 16px;
+  border: 1px solid #D1D5DB;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6B7280;
+  transition: all 0.2s;
+}
+
+.period-selector button:hover {
+  border-color: #8FB3E2;
+  color: #8FB3E2;
+}
+
+.period-selector button.active {
+  background: #8FB3E2;
+  color: white;
+  border-color: #8FB3E2;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #E5E7EB;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #6B7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #8FB3E2;
+}
+
+.tab-btn.active {
+  color: #8FB3E2;
+  border-bottom-color: #8FB3E2;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar .search-input {
+    width: 100%;
+  }
+
+  .toolbar .btn {
+    width: 100%;
+  }
+
+  .period-selector {
+    gap: 4px;
+  }
+
+  .period-selector button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

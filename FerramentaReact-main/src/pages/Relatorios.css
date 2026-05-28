@@ -1,0 +1,51 @@
+.relatorios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.relatorio-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.relatorio-card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.relatorio-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  border-color: #8FB3E2;
+}
+
+.relatorio-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.relatorio-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: #1E2E4F;
+  font-weight: 600;
+}
+
+.relatorio-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+@media (max-width: 768px) {
+  .relatorios-grid {
+    grid-template-columns: 1fr;
+  }
+}
