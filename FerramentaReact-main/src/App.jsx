@@ -19,7 +19,6 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
   return (
-    <Router>
       <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -36,9 +35,5 @@ function App() {
           <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </Layout>
-    </Router>
   )
 }
-
-export default App
-
