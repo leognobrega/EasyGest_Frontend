@@ -6,6 +6,7 @@
   margin-bottom: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #E5E7EB;
+  min-width: 0;
 }
 
 .card-title {
@@ -22,6 +23,7 @@
   padding: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #E5E7EB;
+  min-width: 0;
 }
 
 .kpi-header {
@@ -47,6 +49,7 @@
   font-weight: 700;
   color: #1E2E4F;
   margin-bottom: 8px;
+  overflow-wrap: anywhere;
 }
 
 .kpi-variation {
@@ -100,6 +103,7 @@
 /* Tables */
 .table-container {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #E5E7EB;
@@ -107,6 +111,7 @@
 
 .data-table {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
   background: white;
 }
@@ -140,6 +145,7 @@
 .actions-cell {
   display: flex;
   gap: 8px;
+  min-width: 92px;
 }
 
 .btn-icon {
@@ -176,6 +182,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 16px;
 }
 
 .modal-content {
@@ -374,6 +381,8 @@
   margin: 0 0 8px 0;
   font-size: 28px;
   color: #1E2E4F;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .page-header .subtitle {
@@ -402,7 +411,7 @@
   }
 
   .modal-content {
-    width: 95%;
+    width: 100%;
   }
 
   .data-table {
@@ -412,5 +421,63 @@
   .data-table th,
   .data-table td {
     padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card,
+  .kpi-card {
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-size: 15px;
+  }
+
+  .kpi-header {
+    margin-bottom: 8px;
+  }
+
+  .kpi-value {
+    font-size: 20px;
+  }
+
+  .page-header {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+  }
+
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-content {
+    max-height: 92vh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
   }
 }

@@ -16,7 +16,7 @@ import Perfil from './pages/Perfil'
 import './App.css'
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth > 1024)
 
   return (
       <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
