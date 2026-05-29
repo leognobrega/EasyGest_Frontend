@@ -98,13 +98,13 @@ h6 { font-size: 0.75rem; font-weight: 600; }
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/*
     top: 107px;
     height: 26px;
     width: auto;
     transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
       scale(0.8);
-  }
-}
+  ERRO*/
 
 #center {
   display: flex;
