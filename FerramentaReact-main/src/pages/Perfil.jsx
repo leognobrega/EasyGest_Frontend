@@ -4,8 +4,8 @@ import './Perfil.css'
 
 export default function Perfil() {
   const [perfil, setPerfil] = useState({
-    nome: 'Gabriel Victor',
-    email: 'gabriel@easygest.com',
+    nome: 'Administrador',
+    email: 'gerenciamento@easygest.com',
     cargo: 'Gerente Técnico',
     departamento: 'TI',
     telefone: '(11) 98765-4321',
