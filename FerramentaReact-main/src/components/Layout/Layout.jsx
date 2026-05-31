@@ -63,7 +63,7 @@ export default function Layout({ children, sidebarOpen, setSidebarOpen }) {
             <h2>EasyGest - Sistema de Gestão</h2>
           </div>
           <div className="user-menu">
-            <span className="user-name">Gabriel Victor</span>
+            <span className="user-name">Administrador</span>
             <span className="user-avatar">👤</span>
           </div>
         </header>
