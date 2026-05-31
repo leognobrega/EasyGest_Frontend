@@ -5,6 +5,11 @@ export default function Layout({ children, sidebarOpen, setSidebarOpen }) {
   const location = useLocation()
 
   const isActive = (path) => location.pathname === path
+  const closeSidebar = () => {
+    if (window.innerWidth <= 1024) {
+      setSidebarOpen(false)
+    }
+  }
 
   const menuItems = [
     { path: '/', label: 'Dashboard', icon: '📊' },
@@ -21,6 +26,8 @@ export default function Layout({ children, sidebarOpen, setSidebarOpen }) {
 
   return (
     <div className="app-layout">
+      {sidebarOpen && <button className="sidebar-overlay" onClick={() => setSidebarOpen(false)} aria-label="Fechar menu" />}
+
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="logo">
@@ -32,6 +39,7 @@ export default function Layout({ children, sidebarOpen, setSidebarOpen }) {
               key={item.path}
               to={item.path}
               className={`menu-item ${isActive(item.path) ? 'active' : ''}`}
+              onClick={closeSidebar}
             >
               <span className="icon">{item.icon}</span>
               <span className="label">{item.label}</span>
@@ -47,6 +55,7 @@ export default function Layout({ children, sidebarOpen, setSidebarOpen }) {
           <button
             className="menu-toggle"
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Abrir ou fechar menu"
           >
             ☰
           </button>
