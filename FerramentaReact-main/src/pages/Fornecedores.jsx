@@ -37,7 +37,7 @@ export default function Fornecedores() {
       )
 
       const data = await response.json()
-
+      console.log(data)
       const fornecedoresFormatados = data.map(fornecedor => ({
         id: fornecedor.codFornecedor,
         nome: fornecedor.nomeFornecedor,

@@ -82,6 +82,7 @@ export default function Produtos() {
       const data = await response.json()
 
       setFornecedores(data)
+      console.log(data)
 
     } catch (error) {
       console.error('Erro ao carregar fornecedores:', error)
