@@ -36,118 +36,137 @@ export default function Dashboard() {
   const [vendasRecentes, setVendasRecentes] = useState([])
 
   const carregarDashboard = async () => {
-
   try {
-
     // PRODUTOS
+    const responseProdutos = await fetch('http://localhost:8080/produtos')
+    const produtos = await responseProdutos.json()
 
-    const responseProdutos =
-      await fetch(
-        'http://localhost:8080/produtos'
-      )
-
-    const produtos =
-      await responseProdutos.json()
-
-    const estoqueBaixo =
-      produtos.filter(
-        produto =>
-          Number(produto.quantidadeAtual) <
-          produto.estoqueMinimo
-      )
+    const estoqueBaixo = produtos.filter(
+      produto => Number(produto.quantidadeAtual) < produto.estoqueMinimo
+    )
 
     setEstoqueCritico(
-
       estoqueBaixo.map(produto => ({
-
         sku: produto.codProduto,
-
-        produto:
-          produto.nomeProduto,
-
-        estoque:
-          produto.quantidadeAtual,
-
-        minimo:
-          produto.estoqueMinimo,
-
+        produto: produto.nomeProduto,
+        estoque: produto.quantidadeAtual,
+        minimo: produto.estoqueMinimo,
         status: 'Crítico'
-
       }))
-
     )
 
     // VENDAS
+    const responseVendas = await fetch('http://localhost:8080/vendas')
+    const vendas = await responseVendas.json()
 
-    const responseVendas =
-      await fetch(
-        'http://localhost:8080/vendas'
-      )
+    // ITENS DE VENDA
+    const responseItens = await fetch('http://localhost:8080/itens-venda')
+    const itensVenda = await responseItens.json()
 
-    const vendas =
-      await responseVendas.json()
+    const totalItensVendidos = itensVenda.reduce(
+      (total, item) => total + Number(item.quantidade || 0),
+      0
+    )
 
-    const totalVendas =
+    const totalVendas = vendas.reduce(
+  (total, venda) =>
+    total + Number(venda.valorTotal || 0),
+  0
+)
 
-      vendas.reduce(
+const fluxoPorMes = {}
 
-        (total, venda) =>
+vendas.forEach(venda => {
 
-          total +
-          Number(venda.valorTotal || 0),
+  const data = new Date(venda.dataVenda)
 
-        0
+  const mes = data.toLocaleString(
+    'pt-BR',
+    { month: 'short' }
+  )
 
-      )
+  if (!fluxoPorMes[mes]) {
+
+    fluxoPorMes[mes] = {
+      mes: mes,
+      in: 0,
+      out: 0
+    }
+
+  }
+
+  fluxoPorMes[mes].out +=
+    Number(venda.valorTotal || 0)
+
+})
+
+setMovMensal(
+  Object.values(fluxoPorMes)
+)
+
+    const vendasPorDia = {}
+
+    vendas.forEach(venda => {
+      const dia = venda.dataVenda
+
+      if (!vendasPorDia[dia]) {
+        vendasPorDia[dia] = 0
+      }
+
+      vendasPorDia[dia] += Number(venda.valorTotal || 0)
+    })
+
+    const semanal = Object.entries(vendasPorDia).map(([dia, valor]) => ({
+      dia,
+      valor
+    }))
+
+    setVendasSemanal(semanal)
 
     setKpis({
-
-      vendasHoje:
-        totalVendas,
-
-      ticketMedio:
-
-        vendas.length > 0
-          ? totalVendas / vendas.length
-          : 0,
-
-      itensVendidos:
-        vendas.length,
-
+      vendasHoje: totalVendas,
+      ticketMedio: vendas.length > 0 ? totalVendas / vendas.length : 0,
+      itensVendidos: totalItensVendidos,
       margem: 0,
-
       variacaoVendas: 0,
       variacaoTicket: 0,
       variacaoItens: 0,
       variacaoMargem: 0
-
     })
 
     setVendasRecentes(
 
-      vendas.map(venda => ({
+  vendas
 
-        cliente:
-          venda.cliente?.nomeCliente ||
-          'Sem cliente',
+    .sort(
+      (a, b) =>
+        new Date(b.dataVenda) -
+        new Date(a.dataVenda)
+    )
 
-        total:
-          venda.valorTotal,
+    .slice(0, 5)
 
-        hora:
-          venda.dataVenda
+    .map(venda => ({
 
-      }))
+      cliente:
+        venda.cliente?.nomeCliente ||
+        'Sem cliente',
 
+      total:
+        venda.valorTotal,
+
+      hora:
+        venda.dataVenda
+
+    }))
     )
 
   } catch (error) {
-
-    console.error(error)
-
+    console.error('Erro ao carregar dashboard:', error)
   }
-
 }
+
+
 
   useEffect(() => {
 
