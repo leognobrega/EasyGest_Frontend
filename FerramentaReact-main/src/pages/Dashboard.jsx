@@ -37,40 +37,117 @@ export default function Dashboard() {
 
   const carregarDashboard = async () => {
 
-    try {
+  try {
 
-      const responseProdutos =await fetch('http://localhost:8080/produtos')
+    // PRODUTOS
 
-      const produtos = await responseProdutos.json()
-        console.log(produtos)
-
-      const estoqueBaixo =
-        produtos.filter(
-          p =>
-            Number(p.quantidadeAtual) <
-            p.estoqueMinimo
-        )
-
-        setEstoqueCritico(
-        estoqueBaixo.map(produto => ({
-          sku: produto.codProduto,
-          produto: produto.nomeProduto,
-          estoque: produto.quantidadeAtual,
-          minimo: produto.estoqueMinimo,
-          status: 'Crítico'
-        }))
+    const responseProdutos =
+      await fetch(
+        'http://localhost:8080/produtos'
       )
 
-      } catch (error) {
+    const produtos =
+      await responseProdutos.json()
 
-      console.error(
-        'Erro ao carregar dashboard:',
-        error
+    const estoqueBaixo =
+      produtos.filter(
+        produto =>
+          Number(produto.quantidadeAtual) <
+          produto.estoqueMinimo
       )
 
-    }
+    setEstoqueCritico(
+
+      estoqueBaixo.map(produto => ({
+
+        sku: produto.codProduto,
+
+        produto:
+          produto.nomeProduto,
+
+        estoque:
+          produto.quantidadeAtual,
+
+        minimo:
+          produto.estoqueMinimo,
+
+        status: 'Crítico'
+
+      }))
+
+    )
+
+    // VENDAS
+
+    const responseVendas =
+      await fetch(
+        'http://localhost:8080/vendas'
+      )
+
+    const vendas =
+      await responseVendas.json()
+
+    const totalVendas =
+
+      vendas.reduce(
+
+        (total, venda) =>
+
+          total +
+          Number(venda.valorTotal || 0),
+
+        0
+
+      )
+
+    setKpis({
+
+      vendasHoje:
+        totalVendas,
+
+      ticketMedio:
+
+        vendas.length > 0
+          ? totalVendas / vendas.length
+          : 0,
+
+      itensVendidos:
+        vendas.length,
+
+      margem: 0,
+
+      variacaoVendas: 0,
+      variacaoTicket: 0,
+      variacaoItens: 0,
+      variacaoMargem: 0
+
+    })
+
+    setVendasRecentes(
+
+      vendas.map(venda => ({
+
+        cliente:
+          venda.cliente?.nomeCliente ||
+          'Sem cliente',
+
+        total:
+          venda.valorTotal,
+
+        hora:
+          venda.dataVenda
+
+      }))
+
+    )
+
+  } catch (error) {
+
+    console.error(error)
 
   }
+
+}
 
   useEffect(() => {
 

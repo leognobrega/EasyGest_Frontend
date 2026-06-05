@@ -43,7 +43,7 @@ export default function Clientes() {
         telefone: cliente.telefoneCliente,
         cpf: cliente.cpfCliente,
         cidade: cliente.enderecoCliente,
-        status: 'Ativo'
+        status: cliente.statusCliente?.trim() || 'Ativo'
       }))
 
       setClientes(clientesFormatados)
@@ -123,7 +123,8 @@ export default function Clientes() {
               cpfCliente: formData.cpf,
               enderecoCliente: formData.cidade,
               telefoneCliente: formData.telefone,
-              emailCliente: formData.email
+              emailCliente: formData.email,
+              statusCliente: formData.status
             })
           }
         )
@@ -136,6 +137,7 @@ export default function Clientes() {
           enderecoCliente: formData.cidade,
           telefoneCliente: formData.telefone,
           emailCliente: formData.email,
+          statusCliente: formData.status,
           dataCadastro: new Date().toISOString().split('T')[0]
         }
 
