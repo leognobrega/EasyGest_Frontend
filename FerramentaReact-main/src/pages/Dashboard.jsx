@@ -68,9 +68,14 @@ export default function Dashboard() {
       0
     )
 
-    const totalVendas = vendas.reduce(
-  (total, venda) =>
-    total + Number(venda.valorTotal || 0),
+    const hoje = new Date().toISOString().split('T')[0]
+
+const vendasDeHoje = vendas.filter(
+  venda => venda.dataVenda === hoje
+)
+
+const totalVendasHoje = vendasDeHoje.reduce(
+  (total, venda) => total + Number(venda.valorTotal || 0),
   0
 )
 
@@ -124,15 +129,22 @@ setMovMensal(
     setVendasSemanal(semanal)
 
     setKpis({
-      vendasHoje: totalVendas,
-      ticketMedio: vendas.length > 0 ? totalVendas / vendas.length : 0,
-      itensVendidos: totalItensVendidos,
-      margem: 0,
-      variacaoVendas: 0,
-      variacaoTicket: 0,
-      variacaoItens: 0,
-      variacaoMargem: 0
-    })
+  vendasHoje: totalVendasHoje,
+
+  ticketMedio:
+    vendasDeHoje.length > 0
+      ? totalVendasHoje / vendasDeHoje.length
+      : 0,
+
+  itensVendidos: vendas.length,
+
+  margem: 0,
+
+  variacaoVendas: 0,
+  variacaoTicket: 0,
+  variacaoItens: 0,
+  variacaoMargem: 0
+})
 
     setVendasRecentes(
 
