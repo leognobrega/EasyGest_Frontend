@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { apiUrl } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -17,7 +18,7 @@ export default function Estoque() {
     try {
 
       const response = await fetch(
-        'http://localhost:8080/produtos'
+        apiUrl('/produtos')
       )
 
       const data = await response.json()

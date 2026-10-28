@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { apiUrl } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -35,7 +36,7 @@ export default function RH() {
     try {
 
       const response = await fetch(
-        'http://localhost:8080/funcionarios'
+        apiUrl('/funcionarios')
       )
 
       const data = await response.json()
@@ -103,7 +104,7 @@ export default function RH() {
     try {
 
       await fetch(
-        `http://localhost:8080/funcionarios/${id}`,
+        apiUrl(`/funcionarios/${id}`),
         {
           method: 'DELETE'
         }
@@ -135,7 +136,7 @@ export default function RH() {
       if (editingId) {
 
         await fetch(
-          `http://localhost:8080/funcionarios/${editingId}`,
+          apiUrl(`/funcionarios/${editingId}`),
           {
             method: 'PUT',
             headers: {
@@ -148,7 +149,7 @@ export default function RH() {
       } else {
 
         await fetch(
-          'http://localhost:8080/funcionarios',
+          apiUrl('/funcionarios'),
           {
             method: 'POST',
             headers: {

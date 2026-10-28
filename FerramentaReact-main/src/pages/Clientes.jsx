@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { apiUrl } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -31,7 +32,7 @@ export default function Clientes() {
     try {
 
       const response = await fetch(
-        'http://localhost:8080/clientes'
+        apiUrl('/clientes')
       )
 
       const data = await response.json()
@@ -92,7 +93,7 @@ export default function Clientes() {
     try {
 
       await fetch(
-        `http://localhost:8080/clientes/${id}`,
+        apiUrl(`/clientes/${id}`),
         {
           method: 'DELETE'
         }
@@ -112,7 +113,7 @@ export default function Clientes() {
       if (editingId) {
 
         await fetch(
-          `http://localhost:8080/clientes/${editingId}`,
+          apiUrl(`/clientes/${editingId}`),
           {
             method: 'PUT',
             headers: {
@@ -142,7 +143,7 @@ export default function Clientes() {
         }
 
         await fetch(
-          'http://localhost:8080/clientes',
+          apiUrl('/clientes'),
           {
             method: 'POST',
             headers: {

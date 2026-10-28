@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { apiUrl } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -33,7 +34,7 @@ export default function Prestadores() {
     try {
 
       const response = await fetch(
-        'http://localhost:8080/prestadores'
+        apiUrl('/prestadores')
       )
 
       const data = await response.json()
@@ -108,7 +109,7 @@ export default function Prestadores() {
     try {
 
       await fetch(
-        `http://localhost:8080/prestadores/${id}`,
+        apiUrl(`/prestadores/${id}`),
         {
           method: 'DELETE'
         }
@@ -128,7 +129,7 @@ export default function Prestadores() {
       if (editingId) {
 
         await fetch(
-          `http://localhost:8080/prestadores/${editingId}`,
+          apiUrl(`/prestadores/${editingId}`),
           {
             method: 'PUT',
             headers: {
@@ -163,7 +164,7 @@ export default function Prestadores() {
         }
 
         await fetch(
-          'http://localhost:8080/prestadores',
+          apiUrl('/prestadores'),
           {
             method: 'POST',
             headers: {
