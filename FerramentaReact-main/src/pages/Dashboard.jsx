@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { apiUrl } from '../utils/api'
+import { apiJson } from '../utils/api'
 import { Line, Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -39,8 +39,7 @@ export default function Dashboard() {
   const carregarDashboard = async () => {
   try {
     // PRODUTOS
-    const responseProdutos = await fetch(apiUrl('/produtos'))
-    const produtos = await responseProdutos.json()
+    const produtos = await apiJson('/produtos')
 
     const estoqueBaixo = produtos.filter(
       produto => Number(produto.quantidadeAtual) < produto.estoqueMinimo
@@ -57,12 +56,10 @@ export default function Dashboard() {
     )
 
     // VENDAS
-    const responseVendas = await fetch(apiUrl('/vendas'))
-    const vendas = await responseVendas.json()
+    const vendas = await apiJson('/vendas')
 
     // ITENS DE VENDA
-    const responseItens = await fetch(apiUrl('/itens-venda'))
-    const itensVenda = await responseItens.json()
+    const itensVenda = await apiJson('/itens-venda')
 
     const totalItensVendidos = itensVenda.reduce(
       (total, item) => total + Number(item.quantidade || 0),

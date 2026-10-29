@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { apiUrl } from '../utils/api'
+import { apiJson } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -33,11 +33,7 @@ export default function Prestadores() {
 
     try {
 
-      const response = await fetch(
-        apiUrl('/prestadores')
-      )
-
-      const data = await response.json()
+      const data = await apiJson('/prestadores')
 
       const prestadoresFormatados = data.map(prestador => ({
         id: prestador.codPrestador,
@@ -108,9 +104,7 @@ export default function Prestadores() {
 
     try {
 
-      await fetch(
-        apiUrl(`/prestadores/${id}`),
-        {
+      await apiJson(`/prestadores/${id}`, {
           method: 'DELETE'
         }
       )
@@ -128,9 +122,7 @@ export default function Prestadores() {
 
       if (editingId) {
 
-        await fetch(
-          apiUrl(`/prestadores/${editingId}`),
-          {
+        await apiJson(`/prestadores/${editingId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
@@ -163,9 +155,7 @@ export default function Prestadores() {
             new Date().toISOString().split('T')[0]
         }
 
-        await fetch(
-          apiUrl('/prestadores'),
-          {
+        await apiJson('/prestadores', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

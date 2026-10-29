@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { apiUrl } from '../utils/api'
+import { apiJson } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -17,11 +17,7 @@ export default function Estoque() {
 
     try {
 
-      const response = await fetch(
-        apiUrl('/produtos')
-      )
-
-      const data = await response.json()
+      const data = await apiJson('/produtos')
 
       const estoqueFormatado = data.map(produto => ({
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { apiUrl } from '../utils/api'
+import { apiJson } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -35,11 +35,7 @@ export default function RH() {
 
     try {
 
-      const response = await fetch(
-        apiUrl('/funcionarios')
-      )
-
-      const data = await response.json()
+      const data = await apiJson('/funcionarios')
 
       const funcionariosFormatados = data.map(funcionario => ({
         id: funcionario.codFuncionario,
@@ -103,9 +99,7 @@ export default function RH() {
 
     try {
 
-      await fetch(
-        apiUrl(`/funcionarios/${id}`),
-        {
+      await apiJson(`/funcionarios/${id}`, {
           method: 'DELETE'
         }
       )
@@ -135,9 +129,7 @@ export default function RH() {
 
       if (editingId) {
 
-        await fetch(
-          apiUrl(`/funcionarios/${editingId}`),
-          {
+        await apiJson(`/funcionarios/${editingId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
@@ -148,9 +140,7 @@ export default function RH() {
 
       } else {
 
-        await fetch(
-          apiUrl('/funcionarios'),
-          {
+        await apiJson('/funcionarios', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

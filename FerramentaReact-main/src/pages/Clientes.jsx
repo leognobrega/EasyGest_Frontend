@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { apiUrl } from '../utils/api'
+import { apiJson } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -31,11 +31,7 @@ export default function Clientes() {
   const carregarClientes = async () => {
     try {
 
-      const response = await fetch(
-        apiUrl('/clientes')
-      )
-
-      const data = await response.json()
+      const data = await apiJson('/clientes')
 
       const clientesFormatados = data.map(cliente => ({
         id: cliente.codCliente,
@@ -92,9 +88,7 @@ export default function Clientes() {
 
     try {
 
-      await fetch(
-        apiUrl(`/clientes/${id}`),
-        {
+      await apiJson(`/clientes/${id}`, {
           method: 'DELETE'
         }
       )
@@ -112,9 +106,7 @@ export default function Clientes() {
 
       if (editingId) {
 
-        await fetch(
-          apiUrl(`/clientes/${editingId}`),
-          {
+        await apiJson(`/clientes/${editingId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
@@ -142,9 +134,7 @@ export default function Clientes() {
           dataCadastro: new Date().toISOString().split('T')[0]
         }
 
-        await fetch(
-          apiUrl('/clientes'),
-          {
+        await apiJson('/clientes', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

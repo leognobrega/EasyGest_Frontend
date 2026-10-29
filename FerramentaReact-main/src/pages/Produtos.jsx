@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { apiUrl } from '../utils/api'
+import { apiJson } from '../utils/api'
 import {
   PageHeader,
   Card,
@@ -40,11 +40,7 @@ export default function Produtos() {
 
     try {
 
-      const response = await fetch(
-        apiUrl('/produtos')
-      )
-
-      const data = await response.json()
+      const data = await apiJson('/produtos')
 
       const produtosFormatados = data.map(produto => ({
         id: produto.codProduto,
@@ -76,11 +72,7 @@ export default function Produtos() {
 
     try {
 
-      const response = await fetch(
-        apiUrl('/fornecedores')
-      )
-
-      const data = await response.json()
+      const data = await apiJson('/fornecedores')
 
       setFornecedores(data)
       console.log(data)
@@ -154,9 +146,7 @@ export default function Produtos() {
 
     try {
 
-      await fetch(
-        apiUrl(`/produtos/${id}`),
-        {
+      await apiJson(`/produtos/${id}`, {
           method: 'DELETE'
         }
       )
@@ -195,9 +185,7 @@ export default function Produtos() {
 
       if (editingId) {
 
-        await fetch(
-          apiUrl(`/produtos/${editingId}`),
-          {
+        await apiJson(`/produtos/${editingId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
@@ -208,9 +196,7 @@ export default function Produtos() {
 
       } else {
 
-        await fetch(
-          apiUrl('/produtos'),
-          {
+        await apiJson('/produtos', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
